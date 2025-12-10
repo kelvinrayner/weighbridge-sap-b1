@@ -1,0 +1,59 @@
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.AssemblyReference.cache
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.Properties.Resources.resources
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.GenerateResource.cache
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.CoreCompileInputs.cache
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe.config
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.pdb
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.pdb
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\bin\Debug\Assets\soltius_logo.png
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\bin\Debug\Assets\weighbridge.ico
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe.config
+D:\Soltius\0-Project\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.FormSync.resources
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\bin\Debug\Assets\soltius_logo.png
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\bin\Debug\Assets\weighbridge.ico
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe.config
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.pdb
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.AssemblyReference.cache
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe.config
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.FormSync.resources
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.Properties.Resources.resources
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.GenerateResource.cache
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.CoreCompileInputs.cache
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe
+D:\Soltius\0-Project\Tanimas\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.pdb
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.AssemblyReference.cache
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe.config
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.pdb
+C:\Tanimas\Weighbridge\Weighbridge\bin\Debug\Assets\soltius_logo.png
+C:\Tanimas\Weighbridge\Weighbridge\bin\Debug\Assets\weighbridge.ico
+C:\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe.config
+C:\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe
+C:\Tanimas\Weighbridge\Weighbridge\bin\Debug\Weighbridge.pdb
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.FormSync.resources
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.Properties.Resources.resources
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.GenerateResource.cache
+C:\Tanimas\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.CoreCompileInputs.cache
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Assets\soltius_logo.png
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Assets\weighbridge.ico
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe.config
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.exe
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Weighbridge.pdb
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.AssemblyReference.cache
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.FormSync.resources
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.Properties.Resources.resources
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.GenerateResource.cache
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.CoreCompileInputs.cache
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.exe
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.pdb
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Assets\logo-tanimas.png
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Interop.SAPbobsCOM.dll
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.ResolveComReference.cache
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Sap.Data.Hana.v4.5.dll
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\obj\Debug\Weighbridge.csproj.CopyComplete
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Sap.Data.Hana.v4.5.pdb
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Sap.Data.Hana.v4.5.xml
+C:\Soltius\Development\Add On\Weighbridge\Weighbridge\bin\Debug\Sap.Data.Hana.v4.5.dll.config
