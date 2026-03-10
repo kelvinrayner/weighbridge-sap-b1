@@ -665,6 +665,7 @@ namespace Weighbridge
             // 
             // tbJnsTruck
             // 
+            this.tbJnsTruck.Enabled = false;
             this.tbJnsTruck.Location = new System.Drawing.Point(496, 114);
             this.tbJnsTruck.Name = "tbJnsTruck";
             this.tbJnsTruck.Size = new System.Drawing.Size(212, 20);
@@ -733,6 +734,7 @@ namespace Weighbridge
             // 
             // tbMOISTKebun
             // 
+            this.tbMOISTKebun.Enabled = false;
             this.tbMOISTKebun.Location = new System.Drawing.Point(313, 47);
             this.tbMOISTKebun.Name = "tbMOISTKebun";
             this.tbMOISTKebun.Size = new System.Drawing.Size(129, 20);
@@ -740,6 +742,7 @@ namespace Weighbridge
             // 
             // tbFFAKebun
             // 
+            this.tbFFAKebun.Enabled = false;
             this.tbFFAKebun.Location = new System.Drawing.Point(313, 21);
             this.tbFFAKebun.Name = "tbFFAKebun";
             this.tbFFAKebun.Size = new System.Drawing.Size(129, 20);
@@ -765,6 +768,7 @@ namespace Weighbridge
             // 
             // tbNettoKebun
             // 
+            this.tbNettoKebun.Enabled = false;
             this.tbNettoKebun.Location = new System.Drawing.Point(85, 73);
             this.tbNettoKebun.Name = "tbNettoKebun";
             this.tbNettoKebun.Size = new System.Drawing.Size(129, 20);
@@ -781,6 +785,7 @@ namespace Weighbridge
             // 
             // tbTaraKebun
             // 
+            this.tbTaraKebun.Enabled = false;
             this.tbTaraKebun.Location = new System.Drawing.Point(85, 47);
             this.tbTaraKebun.Name = "tbTaraKebun";
             this.tbTaraKebun.Size = new System.Drawing.Size(129, 20);
@@ -797,6 +802,7 @@ namespace Weighbridge
             // 
             // tbBrutoKebun
             // 
+            this.tbBrutoKebun.Enabled = false;
             this.tbBrutoKebun.Location = new System.Drawing.Point(85, 21);
             this.tbBrutoKebun.Name = "tbBrutoKebun";
             this.tbBrutoKebun.Size = new System.Drawing.Size(129, 20);
@@ -858,6 +864,7 @@ namespace Weighbridge
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(230, 156);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
@@ -868,6 +875,7 @@ namespace Weighbridge
             // 
             // tbDOBI
             // 
+            this.tbDOBI.Enabled = false;
             this.tbDOBI.Location = new System.Drawing.Point(79, 97);
             this.tbDOBI.Margin = new System.Windows.Forms.Padding(2);
             this.tbDOBI.Name = "tbDOBI";
@@ -876,6 +884,7 @@ namespace Weighbridge
             // 
             // tbIMP
             // 
+            this.tbIMP.Enabled = false;
             this.tbIMP.Location = new System.Drawing.Point(79, 73);
             this.tbIMP.Margin = new System.Windows.Forms.Padding(2);
             this.tbIMP.Name = "tbIMP";
@@ -884,6 +893,7 @@ namespace Weighbridge
             // 
             // tbMOIST
             // 
+            this.tbMOIST.Enabled = false;
             this.tbMOIST.Location = new System.Drawing.Point(79, 48);
             this.tbMOIST.Margin = new System.Windows.Forms.Padding(2);
             this.tbMOIST.Name = "tbMOIST";
@@ -892,6 +902,7 @@ namespace Weighbridge
             // 
             // tbCAROTINE
             // 
+            this.tbCAROTINE.Enabled = false;
             this.tbCAROTINE.Location = new System.Drawing.Point(79, 125);
             this.tbCAROTINE.Margin = new System.Windows.Forms.Padding(2);
             this.tbCAROTINE.Name = "tbCAROTINE";
@@ -940,6 +951,7 @@ namespace Weighbridge
             // 
             // tbFFA
             // 
+            this.tbFFA.Enabled = false;
             this.tbFFA.Location = new System.Drawing.Point(79, 21);
             this.tbFFA.Margin = new System.Windows.Forms.Padding(2);
             this.tbFFA.Name = "tbFFA";
@@ -974,6 +986,7 @@ namespace Weighbridge
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(496, 122);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(61, 17);
@@ -984,6 +997,7 @@ namespace Weighbridge
             // btnTimbangKeluar
             // 
             this.btnTimbangKeluar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTimbangKeluar.Enabled = false;
             this.btnTimbangKeluar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimbangKeluar.Location = new System.Drawing.Point(568, 114);
             this.btnTimbangKeluar.Name = "btnTimbangKeluar";
@@ -1010,6 +1024,7 @@ namespace Weighbridge
             // 
             this.cbWINManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbWINManual.AutoSize = true;
+            this.cbWINManual.Enabled = false;
             this.cbWINManual.Location = new System.Drawing.Point(496, 27);
             this.cbWINManual.Name = "cbWINManual";
             this.cbWINManual.Size = new System.Drawing.Size(61, 17);
@@ -1021,6 +1036,7 @@ namespace Weighbridge
             // btnTimbangMasuk
             // 
             this.btnTimbangMasuk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTimbangMasuk.Enabled = false;
             this.btnTimbangMasuk.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimbangMasuk.Location = new System.Drawing.Point(568, 19);
             this.btnTimbangMasuk.Name = "btnTimbangMasuk";
@@ -1047,6 +1063,7 @@ namespace Weighbridge
             // btnWINSave
             // 
             this.btnWINSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWINSave.Enabled = false;
             this.btnWINSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWINSave.Location = new System.Drawing.Point(626, 495);
             this.btnWINSave.Name = "btnWINSave";
@@ -1096,6 +1113,7 @@ namespace Weighbridge
             // 
             // tbTiketNum
             // 
+            this.tbTiketNum.Enabled = false;
             this.tbTiketNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbTiketNum.Location = new System.Drawing.Point(13, 96);
             this.tbTiketNum.Name = "tbTiketNum";
@@ -1104,6 +1122,7 @@ namespace Weighbridge
             // 
             // tbWINNopol
             // 
+            this.tbWINNopol.Enabled = false;
             this.tbWINNopol.Location = new System.Drawing.Point(496, 35);
             this.tbWINNopol.Name = "tbWINNopol";
             this.tbWINNopol.Size = new System.Drawing.Size(212, 20);
@@ -1111,6 +1130,7 @@ namespace Weighbridge
             // 
             // tbWINEksCod
             // 
+            this.tbWINEksCod.Enabled = false;
             this.tbWINEksCod.Location = new System.Drawing.Point(496, 88);
             this.tbWINEksCod.Name = "tbWINEksCod";
             this.tbWINEksCod.Size = new System.Drawing.Size(212, 20);
@@ -1136,6 +1156,7 @@ namespace Weighbridge
             // 
             // tbWINSupir
             // 
+            this.tbWINSupir.Enabled = false;
             this.tbWINSupir.Location = new System.Drawing.Point(496, 61);
             this.tbWINSupir.Name = "tbWINSupir";
             this.tbWINSupir.Size = new System.Drawing.Size(212, 20);
@@ -1180,6 +1201,7 @@ namespace Weighbridge
             // btnUpdateDO
             // 
             this.btnUpdateDO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateDO.Enabled = false;
             this.btnUpdateDO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdateDO.Location = new System.Drawing.Point(613, 494);
             this.btnUpdateDO.Name = "btnUpdateDO";
@@ -1192,6 +1214,7 @@ namespace Weighbridge
             // 
             this.cbManualDO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbManualDO.AutoSize = true;
+            this.cbManualDO.Enabled = false;
             this.cbManualDO.Location = new System.Drawing.Point(493, 43);
             this.cbManualDO.Name = "cbManualDO";
             this.cbManualDO.Size = new System.Drawing.Size(61, 17);
@@ -1203,6 +1226,7 @@ namespace Weighbridge
             // btnTimbangDO
             // 
             this.btnTimbangDO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTimbangDO.Enabled = false;
             this.btnTimbangDO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimbangDO.Location = new System.Drawing.Point(577, 35);
             this.btnTimbangDO.Name = "btnTimbangDO";
