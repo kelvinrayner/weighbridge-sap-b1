@@ -61,10 +61,10 @@ namespace Weighbridge
             this.lbDB = new System.Windows.Forms.Label();
             this.lbServerNm = new System.Windows.Forms.Label();
             this.lbSvrType = new System.Windows.Forms.Label();
+            this.btnTestWBConn = new System.Windows.Forms.Button();
             this.gbApp = new System.Windows.Forms.GroupBox();
             this.lbStatusWBConnection = new System.Windows.Forms.Label();
             this.lbTestQtyTimbang = new System.Windows.Forms.Label();
-            this.btnTestWBConn = new System.Windows.Forms.Button();
             this.tbWriteT = new System.Windows.Forms.TextBox();
             this.tbReadT = new System.Windows.Forms.TextBox();
             this.tbDataBits = new System.Windows.Forms.TextBox();
@@ -129,6 +129,8 @@ namespace Weighbridge
             this.tbNamaSupir = new System.Windows.Forms.TextBox();
             this.lbWINEksCod = new System.Windows.Forms.Label();
             this.tabUpdateDO = new System.Windows.Forms.TabPage();
+            this.lbValKontrakDO = new System.Windows.Forms.Label();
+            this.lbKontrakDO = new System.Windows.Forms.Label();
             this.btnUpdateDO = new System.Windows.Forms.Button();
             this.cbManualDO = new System.Windows.Forms.CheckBox();
             this.btnTimbangDO = new System.Windows.Forms.Button();
@@ -138,8 +140,6 @@ namespace Weighbridge
             this.tbDODocNum = new System.Windows.Forms.TextBox();
             this.lbDODocNum = new System.Windows.Forms.Label();
             this.runningTime = new System.Windows.Forms.Timer(this.components);
-            this.lbValKontrakDO = new System.Windows.Forms.Label();
-            this.lbKontrakDO = new System.Windows.Forms.Label();
             this.tabCtrlMain.SuspendLayout();
             this.tabLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -478,6 +478,16 @@ namespace Weighbridge
             this.lbSvrType.TabIndex = 0;
             this.lbSvrType.Text = "Server Type";
             // 
+            // btnTestWBConn
+            // 
+            this.btnTestWBConn.Location = new System.Drawing.Point(230, 466);
+            this.btnTestWBConn.Name = "btnTestWBConn";
+            this.btnTestWBConn.Size = new System.Drawing.Size(116, 23);
+            this.btnTestWBConn.TabIndex = 10;
+            this.btnTestWBConn.Text = "Test WB Connection";
+            this.btnTestWBConn.UseVisualStyleBackColor = true;
+            this.btnTestWBConn.Click += new System.EventHandler(this.btnTestWBConn_Click);
+            // 
             // gbApp
             // 
             this.gbApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -519,16 +529,6 @@ namespace Weighbridge
             this.lbTestQtyTimbang.Size = new System.Drawing.Size(91, 13);
             this.lbTestQtyTimbang.TabIndex = 11;
             this.lbTestQtyTimbang.Text = "Test Qty Timbang";
-            // 
-            // btnTestWBConn
-            // 
-            this.btnTestWBConn.Location = new System.Drawing.Point(230, 466);
-            this.btnTestWBConn.Name = "btnTestWBConn";
-            this.btnTestWBConn.Size = new System.Drawing.Size(116, 23);
-            this.btnTestWBConn.TabIndex = 10;
-            this.btnTestWBConn.Text = "Test WB Connection";
-            this.btnTestWBConn.UseVisualStyleBackColor = true;
-            this.btnTestWBConn.Click += new System.EventHandler(this.btnTestWBConn_Click);
             // 
             // tbWriteT
             // 
@@ -1065,6 +1065,7 @@ namespace Weighbridge
             this.tbQtyKeluar.TabIndex = 10;
             this.tbQtyKeluar.Text = "0";
             this.tbQtyKeluar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbQtyKeluar.TextChanged += new System.EventHandler(this.tbQtyKeluar_TextChanged);
             this.tbQtyKeluar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbQtyKeluar_KeyPress);
             // 
             // cbTMManual
@@ -1239,6 +1240,24 @@ namespace Weighbridge
             this.tabUpdateDO.Text = "Update Delivery Order";
             this.tabUpdateDO.UseVisualStyleBackColor = true;
             // 
+            // lbValKontrakDO
+            // 
+            this.lbValKontrakDO.AutoSize = true;
+            this.lbValKontrakDO.Location = new System.Drawing.Point(55, 87);
+            this.lbValKontrakDO.Name = "lbValKontrakDO";
+            this.lbValKontrakDO.Size = new System.Drawing.Size(50, 13);
+            this.lbValKontrakDO.TabIndex = 20;
+            this.lbValKontrakDO.Text = ": Kontrak";
+            // 
+            // lbKontrakDO
+            // 
+            this.lbKontrakDO.AutoSize = true;
+            this.lbKontrakDO.Location = new System.Drawing.Point(10, 87);
+            this.lbKontrakDO.Name = "lbKontrakDO";
+            this.lbKontrakDO.Size = new System.Drawing.Size(44, 13);
+            this.lbKontrakDO.TabIndex = 17;
+            this.lbKontrakDO.Text = "Kontrak";
+            // 
             // btnUpdateDO
             // 
             this.btnUpdateDO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1335,24 +1354,6 @@ namespace Weighbridge
             // 
             this.runningTime.Enabled = true;
             this.runningTime.Tick += new System.EventHandler(this.runningTime_Tick);
-            // 
-            // lbValKontrakDO
-            // 
-            this.lbValKontrakDO.AutoSize = true;
-            this.lbValKontrakDO.Location = new System.Drawing.Point(55, 87);
-            this.lbValKontrakDO.Name = "lbValKontrakDO";
-            this.lbValKontrakDO.Size = new System.Drawing.Size(50, 13);
-            this.lbValKontrakDO.TabIndex = 20;
-            this.lbValKontrakDO.Text = ": Kontrak";
-            // 
-            // lbKontrakDO
-            // 
-            this.lbKontrakDO.AutoSize = true;
-            this.lbKontrakDO.Location = new System.Drawing.Point(10, 87);
-            this.lbKontrakDO.Name = "lbKontrakDO";
-            this.lbKontrakDO.Size = new System.Drawing.Size(44, 13);
-            this.lbKontrakDO.TabIndex = 17;
-            this.lbKontrakDO.Text = "Kontrak";
             // 
             // FormSync
             // 

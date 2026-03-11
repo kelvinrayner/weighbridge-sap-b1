@@ -67,7 +67,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartUp.cs" />
-    <Compile Include="SyncHandler.cs" />
     <EmbeddedResource Include="FormSync.resx">
       <DependentUpon>FormSync.cs</DependentUpon>
     </EmbeddedResource>

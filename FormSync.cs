@@ -123,14 +123,14 @@ namespace Weighbridge
             {
                 timbangType = "M";
                 tbQtyMasuk.Enabled = true;
-                tbQtyMasuk.Text = "";
+                tbQtyMasuk.Text = Convert.ToString(0);
                 btnTimbangMasuk.Visible = false;
             }
             else
             {
                 timbangType = "A";
                 tbQtyMasuk.Enabled = false;
-                tbQtyMasuk.Text = "";
+                tbQtyMasuk.Text = Convert.ToString(0);
                 btnTimbangMasuk.Visible = true;
             }
         }
@@ -141,14 +141,14 @@ namespace Weighbridge
             {
                 timbangType = "M";
                 tbQtyKeluar.Enabled = true;
-                tbQtyKeluar.Text = "";
+                tbQtyKeluar.Text = Convert.ToString(0);
                 btnTimbangKeluar.Visible = false;
             }
             else
             {
                 timbangType = "A";
                 tbQtyKeluar.Enabled = false;
-                tbQtyKeluar.Text = "";
+                tbQtyKeluar.Text = Convert.ToString(0);
                 btnTimbangKeluar.Visible = true;
             }
         }
@@ -156,13 +156,13 @@ namespace Weighbridge
         private void tbQtyMasuk_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow digits, control characters (like backspace), and the decimal separator
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar !=','))
             {
                 e.Handled = true; // Prevent the character from being entered
             }
 
             // Only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
             {
                 e.Handled = true; // Prevent multiple decimal points
             }
@@ -171,15 +171,38 @@ namespace Weighbridge
         private void tbQtyKeluar_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow digits, control characters (like backspace), and the decimal separator
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
             {
                 e.Handled = true; // Prevent the character from being entered
             }
 
             // Only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
             {
                 e.Handled = true; // Prevent multiple decimal points
+            }
+        }
+
+
+        private void tbQtyKeluar_TextChanged(object sender, EventArgs e)
+        {
+            double qtyNetto;
+
+            if (Double.TryParse(tbQtyMasuk.Text, out double qtyMasuk) && Double.TryParse(tbQtyKeluar.Text, out double qtyKeluar))
+            {
+
+                if (qtyMasuk > qtyKeluar)
+                {
+                    qtyNetto = qtyMasuk - qtyKeluar;
+
+                    tbQtyNetto.Text = qtyNetto.ToString();
+                }
+                else
+                {
+                    qtyNetto = qtyKeluar - qtyMasuk;
+
+                    tbQtyNetto.Text = qtyNetto.ToString();
+                }
             }
         }
 
@@ -496,14 +519,14 @@ namespace Weighbridge
             {
                 timbangType = "M";
                 tbQtyTimbangDO.Enabled = true;
-                tbQtyTimbangDO.Text = "";
+                tbQtyTimbangDO.Text = Convert.ToString(0);
                 btnTimbangDO.Visible = false;
             }
             else
             {
                 timbangType = "A"; 
                 tbQtyTimbangDO.Enabled = false;
-                tbQtyTimbangDO.Text = "";
+                tbQtyTimbangDO.Text = Convert.ToString(0);
                 btnTimbangDO.Visible = true;
             }
         }
@@ -511,9 +534,15 @@ namespace Weighbridge
         private void tbQtyTimbangDO_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow digits, control characters (like backspace), and the decimal separator
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
             {
                 e.Handled = true; // Prevent the character from being entered
+            }
+
+            // Only allow one decimal point
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true; // Prevent multiple decimal points
             }
         }
 
