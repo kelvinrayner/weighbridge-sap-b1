@@ -62,6 +62,7 @@ namespace Weighbridge
             this.lbServerNm = new System.Windows.Forms.Label();
             this.lbSvrType = new System.Windows.Forms.Label();
             this.gbApp = new System.Windows.Forms.GroupBox();
+            this.lbStatusWBConnection = new System.Windows.Forms.Label();
             this.lbTestQtyTimbang = new System.Windows.Forms.Label();
             this.btnTestWBConn = new System.Windows.Forms.Button();
             this.tbWriteT = new System.Windows.Forms.TextBox();
@@ -75,11 +76,14 @@ namespace Weighbridge
             this.lbBaudRate = new System.Windows.Forms.Label();
             this.lbPort = new System.Windows.Forms.Label();
             this.tabWB = new System.Windows.Forms.TabPage();
+            this.lblValKontrak = new System.Windows.Forms.Label();
+            this.lblValDocNo = new System.Windows.Forms.Label();
+            this.lblDocNoSAP = new System.Windows.Forms.Label();
             this.lbNoKontrak = new System.Windows.Forms.Label();
             this.tbJnsTruck = new System.Windows.Forms.TextBox();
             this.lbJnsTruck = new System.Windows.Forms.Label();
             this.lbDateTime = new System.Windows.Forms.Label();
-            this.cbWINDocType = new System.Windows.Forms.ComboBox();
+            this.cbDocType = new System.Windows.Forms.ComboBox();
             this.gbWINKen = new System.Windows.Forms.GroupBox();
             this.tbMOISTKebun = new System.Windows.Forms.TextBox();
             this.tbFFAKebun = new System.Windows.Forms.TextBox();
@@ -94,7 +98,7 @@ namespace Weighbridge
             this.lblNetto = new System.Windows.Forms.Label();
             this.lbHasilUjiLab = new System.Windows.Forms.Label();
             this.gbUjiLab = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSubmitUjiLab = new System.Windows.Forms.Button();
             this.tbDOBI = new System.Windows.Forms.TextBox();
             this.tbIMP = new System.Windows.Forms.TextBox();
             this.tbMOIST = new System.Windows.Forms.TextBox();
@@ -105,27 +109,26 @@ namespace Weighbridge
             this.lblMoist = new System.Windows.Forms.Label();
             this.tbFFA = new System.Windows.Forms.TextBox();
             this.lblFFA = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tbQtyNetto = new System.Windows.Forms.TextBox();
+            this.cbTKManual = new System.Windows.Forms.CheckBox();
             this.btnTimbangKeluar = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.cbWINManual = new System.Windows.Forms.CheckBox();
+            this.tbQtyKeluar = new System.Windows.Forms.TextBox();
+            this.cbTMManual = new System.Windows.Forms.CheckBox();
             this.btnTimbangMasuk = new System.Windows.Forms.Button();
             this.tbQtyMasuk = new System.Windows.Forms.TextBox();
-            this.btnWINSave = new System.Windows.Forms.Button();
+            this.btnWBSave = new System.Windows.Forms.Button();
             this.btnCariBaseDoc = new System.Windows.Forms.Button();
-            this.tbWINBaseDoc = new System.Windows.Forms.TextBox();
+            this.tbBaseDoc = new System.Windows.Forms.TextBox();
             this.lbTiketNum = new System.Windows.Forms.Label();
             this.lbWINBaseDoc = new System.Windows.Forms.Label();
             this.tbTiketNum = new System.Windows.Forms.TextBox();
-            this.tbWINNopol = new System.Windows.Forms.TextBox();
-            this.tbWINEksCod = new System.Windows.Forms.TextBox();
+            this.tbNopol = new System.Windows.Forms.TextBox();
+            this.tbSIMSupir = new System.Windows.Forms.TextBox();
             this.lbWINNopol = new System.Windows.Forms.Label();
             this.lbWINSupir = new System.Windows.Forms.Label();
-            this.tbWINSupir = new System.Windows.Forms.TextBox();
+            this.tbNamaSupir = new System.Windows.Forms.TextBox();
             this.lbWINEksCod = new System.Windows.Forms.Label();
             this.tabUpdateDO = new System.Windows.Forms.TabPage();
-            this.lbNoKontrakDO = new System.Windows.Forms.Label();
             this.btnUpdateDO = new System.Windows.Forms.Button();
             this.cbManualDO = new System.Windows.Forms.CheckBox();
             this.btnTimbangDO = new System.Windows.Forms.Button();
@@ -135,6 +138,8 @@ namespace Weighbridge
             this.tbDODocNum = new System.Windows.Forms.TextBox();
             this.lbDODocNum = new System.Windows.Forms.Label();
             this.runningTime = new System.Windows.Forms.Timer(this.components);
+            this.lbValKontrakDO = new System.Windows.Forms.Label();
+            this.lbKontrakDO = new System.Windows.Forms.Label();
             this.tabCtrlMain.SuspendLayout();
             this.tabLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -263,6 +268,7 @@ namespace Weighbridge
             // 
             this.tabAppDB.Controls.Add(this.btnSvConfig);
             this.tabAppDB.Controls.Add(this.gbDB);
+            this.tabAppDB.Controls.Add(this.btnTestWBConn);
             this.tabAppDB.Controls.Add(this.gbApp);
             this.tabAppDB.Location = new System.Drawing.Point(4, 22);
             this.tabAppDB.Name = "tabAppDB";
@@ -477,8 +483,8 @@ namespace Weighbridge
             this.gbApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbApp.Controls.Add(this.lbStatusWBConnection);
             this.gbApp.Controls.Add(this.lbTestQtyTimbang);
-            this.gbApp.Controls.Add(this.btnTestWBConn);
             this.gbApp.Controls.Add(this.tbWriteT);
             this.gbApp.Controls.Add(this.tbReadT);
             this.gbApp.Controls.Add(this.tbDataBits);
@@ -496,10 +502,19 @@ namespace Weighbridge
             this.gbApp.TabStop = false;
             this.gbApp.Text = "Weighbridge";
             // 
+            // lbStatusWBConnection
+            // 
+            this.lbStatusWBConnection.AutoSize = true;
+            this.lbStatusWBConnection.Location = new System.Drawing.Point(232, 432);
+            this.lbStatusWBConnection.Name = "lbStatusWBConnection";
+            this.lbStatusWBConnection.Size = new System.Drawing.Size(94, 13);
+            this.lbStatusWBConnection.TabIndex = 12;
+            this.lbStatusWBConnection.Text = "Connection Status";
+            // 
             // lbTestQtyTimbang
             // 
             this.lbTestQtyTimbang.AutoSize = true;
-            this.lbTestQtyTimbang.Location = new System.Drawing.Point(223, 202);
+            this.lbTestQtyTimbang.Location = new System.Drawing.Point(232, 407);
             this.lbTestQtyTimbang.Name = "lbTestQtyTimbang";
             this.lbTestQtyTimbang.Size = new System.Drawing.Size(91, 13);
             this.lbTestQtyTimbang.TabIndex = 11;
@@ -507,7 +522,7 @@ namespace Weighbridge
             // 
             // btnTestWBConn
             // 
-            this.btnTestWBConn.Location = new System.Drawing.Point(223, 172);
+            this.btnTestWBConn.Location = new System.Drawing.Point(230, 466);
             this.btnTestWBConn.Name = "btnTestWBConn";
             this.btnTestWBConn.Size = new System.Drawing.Size(116, 23);
             this.btnTestWBConn.TabIndex = 10;
@@ -629,23 +644,26 @@ namespace Weighbridge
             // 
             // tabWB
             // 
+            this.tabWB.Controls.Add(this.lblValKontrak);
+            this.tabWB.Controls.Add(this.lblValDocNo);
+            this.tabWB.Controls.Add(this.lblDocNoSAP);
             this.tabWB.Controls.Add(this.lbNoKontrak);
             this.tabWB.Controls.Add(this.tbJnsTruck);
             this.tabWB.Controls.Add(this.lbJnsTruck);
             this.tabWB.Controls.Add(this.lbDateTime);
-            this.tabWB.Controls.Add(this.cbWINDocType);
+            this.tabWB.Controls.Add(this.cbDocType);
             this.tabWB.Controls.Add(this.gbWINKen);
-            this.tabWB.Controls.Add(this.btnWINSave);
+            this.tabWB.Controls.Add(this.btnWBSave);
             this.tabWB.Controls.Add(this.btnCariBaseDoc);
-            this.tabWB.Controls.Add(this.tbWINBaseDoc);
+            this.tabWB.Controls.Add(this.tbBaseDoc);
             this.tabWB.Controls.Add(this.lbTiketNum);
             this.tabWB.Controls.Add(this.lbWINBaseDoc);
             this.tabWB.Controls.Add(this.tbTiketNum);
-            this.tabWB.Controls.Add(this.tbWINNopol);
-            this.tabWB.Controls.Add(this.tbWINEksCod);
+            this.tabWB.Controls.Add(this.tbNopol);
+            this.tabWB.Controls.Add(this.tbSIMSupir);
             this.tabWB.Controls.Add(this.lbWINNopol);
             this.tabWB.Controls.Add(this.lbWINSupir);
-            this.tabWB.Controls.Add(this.tbWINSupir);
+            this.tabWB.Controls.Add(this.tbNamaSupir);
             this.tabWB.Controls.Add(this.lbWINEksCod);
             this.tabWB.Location = new System.Drawing.Point(4, 22);
             this.tabWB.Name = "tabWB";
@@ -653,6 +671,33 @@ namespace Weighbridge
             this.tabWB.TabIndex = 2;
             this.tabWB.Text = "Weighbridge IN & OUT";
             this.tabWB.UseVisualStyleBackColor = true;
+            // 
+            // lblValKontrak
+            // 
+            this.lblValKontrak.AutoSize = true;
+            this.lblValKontrak.Location = new System.Drawing.Point(116, 124);
+            this.lblValKontrak.Name = "lblValKontrak";
+            this.lblValKontrak.Size = new System.Drawing.Size(50, 13);
+            this.lblValKontrak.TabIndex = 15;
+            this.lblValKontrak.Text = ": Kontrak";
+            // 
+            // lblValDocNo
+            // 
+            this.lblValDocNo.AutoSize = true;
+            this.lblValDocNo.Location = new System.Drawing.Point(116, 101);
+            this.lblValDocNo.Name = "lblValDocNo";
+            this.lblValDocNo.Size = new System.Drawing.Size(50, 13);
+            this.lblValDocNo.TabIndex = 14;
+            this.lblValDocNo.Text = ": Doc No";
+            // 
+            // lblDocNoSAP
+            // 
+            this.lblDocNoSAP.AutoSize = true;
+            this.lblDocNoSAP.Location = new System.Drawing.Point(13, 101);
+            this.lblDocNoSAP.Name = "lblDocNoSAP";
+            this.lblDocNoSAP.Size = new System.Drawing.Size(97, 13);
+            this.lblDocNoSAP.TabIndex = 13;
+            this.lblDocNoSAP.Text = "Document No SAP";
             // 
             // lbNoKontrak
             // 
@@ -691,17 +736,17 @@ namespace Weighbridge
             this.lbDateTime.TabIndex = 6;
             this.lbDateTime.Text = "Date Time";
             // 
-            // cbWINDocType
+            // cbDocType
             // 
-            this.cbWINDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbWINDocType.FormattingEnabled = true;
-            this.cbWINDocType.Items.AddRange(new object[] {
+            this.cbDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDocType.FormattingEnabled = true;
+            this.cbDocType.Items.AddRange(new object[] {
             "PO",
             "SO"});
-            this.cbWINDocType.Location = new System.Drawing.Point(12, 51);
-            this.cbWINDocType.Name = "cbWINDocType";
-            this.cbWINDocType.Size = new System.Drawing.Size(49, 21);
-            this.cbWINDocType.TabIndex = 7;
+            this.cbDocType.Location = new System.Drawing.Point(12, 26);
+            this.cbDocType.Name = "cbDocType";
+            this.cbDocType.Size = new System.Drawing.Size(49, 21);
+            this.cbDocType.TabIndex = 7;
             // 
             // gbWINKen
             // 
@@ -718,11 +763,11 @@ namespace Weighbridge
             this.gbWINKen.Controls.Add(this.lblNetto);
             this.gbWINKen.Controls.Add(this.lbHasilUjiLab);
             this.gbWINKen.Controls.Add(this.gbUjiLab);
-            this.gbWINKen.Controls.Add(this.textBox2);
-            this.gbWINKen.Controls.Add(this.checkBox1);
+            this.gbWINKen.Controls.Add(this.tbQtyNetto);
+            this.gbWINKen.Controls.Add(this.cbTKManual);
             this.gbWINKen.Controls.Add(this.btnTimbangKeluar);
-            this.gbWINKen.Controls.Add(this.textBox1);
-            this.gbWINKen.Controls.Add(this.cbWINManual);
+            this.gbWINKen.Controls.Add(this.tbQtyKeluar);
+            this.gbWINKen.Controls.Add(this.cbTMManual);
             this.gbWINKen.Controls.Add(this.btnTimbangMasuk);
             this.gbWINKen.Controls.Add(this.tbQtyMasuk);
             this.gbWINKen.Location = new System.Drawing.Point(7, 151);
@@ -842,7 +887,7 @@ namespace Weighbridge
             // 
             // gbUjiLab
             // 
-            this.gbUjiLab.Controls.Add(this.button1);
+            this.gbUjiLab.Controls.Add(this.btnSubmitUjiLab);
             this.gbUjiLab.Controls.Add(this.tbDOBI);
             this.gbUjiLab.Controls.Add(this.tbIMP);
             this.gbUjiLab.Controls.Add(this.tbMOIST);
@@ -862,16 +907,16 @@ namespace Weighbridge
             this.gbUjiLab.TabStop = false;
             this.gbUjiLab.Text = "Uji Lab";
             // 
-            // button1
+            // btnSubmitUjiLab
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(230, 156);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 20);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSubmitUjiLab.Enabled = false;
+            this.btnSubmitUjiLab.Location = new System.Drawing.Point(230, 156);
+            this.btnSubmitUjiLab.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSubmitUjiLab.Name = "btnSubmitUjiLab";
+            this.btnSubmitUjiLab.Size = new System.Drawing.Size(50, 20);
+            this.btnSubmitUjiLab.TabIndex = 10;
+            this.btnSubmitUjiLab.Text = "Submit";
+            this.btnSubmitUjiLab.UseVisualStyleBackColor = true;
             // 
             // tbDOBI
             // 
@@ -968,31 +1013,32 @@ namespace Weighbridge
             this.lblFFA.TabIndex = 0;
             this.lblFFA.Text = "FFA";
             // 
-            // textBox2
+            // tbQtyNetto
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbQtyNetto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.BackColor = System.Drawing.Color.CadetBlue;
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(488, 229);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(213, 50);
-            this.textBox2.TabIndex = 13;
-            this.textBox2.Text = "0";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbQtyNetto.BackColor = System.Drawing.Color.CadetBlue;
+            this.tbQtyNetto.Enabled = false;
+            this.tbQtyNetto.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbQtyNetto.Location = new System.Drawing.Point(488, 229);
+            this.tbQtyNetto.Name = "tbQtyNetto";
+            this.tbQtyNetto.Size = new System.Drawing.Size(213, 50);
+            this.tbQtyNetto.TabIndex = 13;
+            this.tbQtyNetto.Text = "0";
+            this.tbQtyNetto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // checkBox1
+            // cbTKManual
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(496, 122);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(61, 17);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Manual";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbTKManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbTKManual.AutoSize = true;
+            this.cbTKManual.Enabled = false;
+            this.cbTKManual.Location = new System.Drawing.Point(496, 122);
+            this.cbTKManual.Name = "cbTKManual";
+            this.cbTKManual.Size = new System.Drawing.Size(61, 17);
+            this.cbTKManual.TabIndex = 12;
+            this.cbTKManual.Text = "Manual";
+            this.cbTKManual.UseVisualStyleBackColor = true;
+            this.cbTKManual.CheckedChanged += new System.EventHandler(this.cbTKManual_CheckedChanged);
             // 
             // btnTimbangKeluar
             // 
@@ -1006,32 +1052,33 @@ namespace Weighbridge
             this.btnTimbangKeluar.Text = "Timbang Keluar";
             this.btnTimbangKeluar.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tbQtyKeluar
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbQtyKeluar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.CadetBlue;
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(488, 148);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(213, 50);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.Text = "0";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbQtyKeluar.BackColor = System.Drawing.Color.CadetBlue;
+            this.tbQtyKeluar.Enabled = false;
+            this.tbQtyKeluar.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbQtyKeluar.Location = new System.Drawing.Point(488, 148);
+            this.tbQtyKeluar.Name = "tbQtyKeluar";
+            this.tbQtyKeluar.Size = new System.Drawing.Size(213, 50);
+            this.tbQtyKeluar.TabIndex = 10;
+            this.tbQtyKeluar.Text = "0";
+            this.tbQtyKeluar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbQtyKeluar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbQtyKeluar_KeyPress);
             // 
-            // cbWINManual
+            // cbTMManual
             // 
-            this.cbWINManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbWINManual.AutoSize = true;
-            this.cbWINManual.Enabled = false;
-            this.cbWINManual.Location = new System.Drawing.Point(496, 27);
-            this.cbWINManual.Name = "cbWINManual";
-            this.cbWINManual.Size = new System.Drawing.Size(61, 17);
-            this.cbWINManual.TabIndex = 2;
-            this.cbWINManual.Text = "Manual";
-            this.cbWINManual.UseVisualStyleBackColor = true;
-            this.cbWINManual.CheckedChanged += new System.EventHandler(this.cbWINManual_CheckedChanged);
+            this.cbTMManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbTMManual.AutoSize = true;
+            this.cbTMManual.Enabled = false;
+            this.cbTMManual.Location = new System.Drawing.Point(496, 27);
+            this.cbTMManual.Name = "cbTMManual";
+            this.cbTMManual.Size = new System.Drawing.Size(61, 17);
+            this.cbTMManual.TabIndex = 2;
+            this.cbTMManual.Text = "Manual";
+            this.cbTMManual.UseVisualStyleBackColor = true;
+            this.cbTMManual.CheckedChanged += new System.EventHandler(this.cbTMManual_CheckedChanged_1);
             // 
             // btnTimbangMasuk
             // 
@@ -1060,41 +1107,43 @@ namespace Weighbridge
             this.tbQtyMasuk.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbQtyMasuk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbQtyMasuk_KeyPress);
             // 
-            // btnWINSave
+            // btnWBSave
             // 
-            this.btnWINSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnWINSave.Enabled = false;
-            this.btnWINSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWINSave.Location = new System.Drawing.Point(626, 495);
-            this.btnWINSave.Name = "btnWINSave";
-            this.btnWINSave.Size = new System.Drawing.Size(96, 25);
-            this.btnWINSave.TabIndex = 5;
-            this.btnWINSave.Text = "Save";
-            this.btnWINSave.UseVisualStyleBackColor = true;
+            this.btnWBSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWBSave.Enabled = false;
+            this.btnWBSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWBSave.Location = new System.Drawing.Point(626, 495);
+            this.btnWBSave.Name = "btnWBSave";
+            this.btnWBSave.Size = new System.Drawing.Size(96, 25);
+            this.btnWBSave.TabIndex = 5;
+            this.btnWBSave.Text = "Save";
+            this.btnWBSave.UseVisualStyleBackColor = true;
+            this.btnWBSave.Click += new System.EventHandler(this.btnWBSave_Click);
             // 
             // btnCariBaseDoc
             // 
-            this.btnCariBaseDoc.Location = new System.Drawing.Point(287, 52);
+            this.btnCariBaseDoc.Location = new System.Drawing.Point(287, 29);
             this.btnCariBaseDoc.Name = "btnCariBaseDoc";
             this.btnCariBaseDoc.Size = new System.Drawing.Size(56, 20);
             this.btnCariBaseDoc.TabIndex = 6;
             this.btnCariBaseDoc.Text = "Search";
             this.btnCariBaseDoc.UseVisualStyleBackColor = true;
+            this.btnCariBaseDoc.Click += new System.EventHandler(this.btnCariBaseDoc_Click);
             // 
-            // tbWINBaseDoc
+            // tbBaseDoc
             // 
-            this.tbWINBaseDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbWINBaseDoc.Location = new System.Drawing.Point(66, 51);
-            this.tbWINBaseDoc.Name = "tbWINBaseDoc";
-            this.tbWINBaseDoc.Size = new System.Drawing.Size(215, 21);
-            this.tbWINBaseDoc.TabIndex = 5;
+            this.tbBaseDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbBaseDoc.Location = new System.Drawing.Point(66, 26);
+            this.tbBaseDoc.Name = "tbBaseDoc";
+            this.tbBaseDoc.Size = new System.Drawing.Size(215, 21);
+            this.tbBaseDoc.TabIndex = 5;
             // 
             // lbTiketNum
             // 
             this.lbTiketNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTiketNum.AutoSize = true;
-            this.lbTiketNum.Location = new System.Drawing.Point(10, 80);
+            this.lbTiketNum.Location = new System.Drawing.Point(10, 55);
             this.lbTiketNum.Name = "lbTiketNum";
             this.lbTiketNum.Size = new System.Drawing.Size(65, 13);
             this.lbTiketNum.TabIndex = 0;
@@ -1105,7 +1154,7 @@ namespace Weighbridge
             this.lbWINBaseDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbWINBaseDoc.AutoSize = true;
-            this.lbWINBaseDoc.Location = new System.Drawing.Point(10, 35);
+            this.lbWINBaseDoc.Location = new System.Drawing.Point(10, 10);
             this.lbWINBaseDoc.Name = "lbWINBaseDoc";
             this.lbWINBaseDoc.Size = new System.Drawing.Size(83, 13);
             this.lbWINBaseDoc.TabIndex = 4;
@@ -1115,26 +1164,26 @@ namespace Weighbridge
             // 
             this.tbTiketNum.Enabled = false;
             this.tbTiketNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTiketNum.Location = new System.Drawing.Point(13, 96);
+            this.tbTiketNum.Location = new System.Drawing.Point(13, 71);
             this.tbTiketNum.Name = "tbTiketNum";
             this.tbTiketNum.Size = new System.Drawing.Size(268, 21);
             this.tbTiketNum.TabIndex = 2;
             // 
-            // tbWINNopol
+            // tbNopol
             // 
-            this.tbWINNopol.Enabled = false;
-            this.tbWINNopol.Location = new System.Drawing.Point(496, 35);
-            this.tbWINNopol.Name = "tbWINNopol";
-            this.tbWINNopol.Size = new System.Drawing.Size(212, 20);
-            this.tbWINNopol.TabIndex = 7;
+            this.tbNopol.Enabled = false;
+            this.tbNopol.Location = new System.Drawing.Point(496, 35);
+            this.tbNopol.Name = "tbNopol";
+            this.tbNopol.Size = new System.Drawing.Size(212, 20);
+            this.tbNopol.TabIndex = 7;
             // 
-            // tbWINEksCod
+            // tbSIMSupir
             // 
-            this.tbWINEksCod.Enabled = false;
-            this.tbWINEksCod.Location = new System.Drawing.Point(496, 88);
-            this.tbWINEksCod.Name = "tbWINEksCod";
-            this.tbWINEksCod.Size = new System.Drawing.Size(212, 20);
-            this.tbWINEksCod.TabIndex = 9;
+            this.tbSIMSupir.Enabled = false;
+            this.tbSIMSupir.Location = new System.Drawing.Point(496, 88);
+            this.tbSIMSupir.Name = "tbSIMSupir";
+            this.tbSIMSupir.Size = new System.Drawing.Size(212, 20);
+            this.tbSIMSupir.TabIndex = 9;
             // 
             // lbWINNopol
             // 
@@ -1154,13 +1203,13 @@ namespace Weighbridge
             this.lbWINSupir.TabIndex = 1;
             this.lbWINSupir.Text = "Nama Supir";
             // 
-            // tbWINSupir
+            // tbNamaSupir
             // 
-            this.tbWINSupir.Enabled = false;
-            this.tbWINSupir.Location = new System.Drawing.Point(496, 61);
-            this.tbWINSupir.Name = "tbWINSupir";
-            this.tbWINSupir.Size = new System.Drawing.Size(212, 20);
-            this.tbWINSupir.TabIndex = 8;
+            this.tbNamaSupir.Enabled = false;
+            this.tbNamaSupir.Location = new System.Drawing.Point(496, 61);
+            this.tbNamaSupir.Name = "tbNamaSupir";
+            this.tbNamaSupir.Size = new System.Drawing.Size(212, 20);
+            this.tbNamaSupir.TabIndex = 8;
             // 
             // lbWINEksCod
             // 
@@ -1173,7 +1222,8 @@ namespace Weighbridge
             // 
             // tabUpdateDO
             // 
-            this.tabUpdateDO.Controls.Add(this.lbNoKontrakDO);
+            this.tabUpdateDO.Controls.Add(this.lbValKontrakDO);
+            this.tabUpdateDO.Controls.Add(this.lbKontrakDO);
             this.tabUpdateDO.Controls.Add(this.btnUpdateDO);
             this.tabUpdateDO.Controls.Add(this.cbManualDO);
             this.tabUpdateDO.Controls.Add(this.btnTimbangDO);
@@ -1188,15 +1238,6 @@ namespace Weighbridge
             this.tabUpdateDO.TabIndex = 3;
             this.tabUpdateDO.Text = "Update Delivery Order";
             this.tabUpdateDO.UseVisualStyleBackColor = true;
-            // 
-            // lbNoKontrakDO
-            // 
-            this.lbNoKontrakDO.AutoSize = true;
-            this.lbNoKontrakDO.Location = new System.Drawing.Point(10, 84);
-            this.lbNoKontrakDO.Name = "lbNoKontrakDO";
-            this.lbNoKontrakDO.Size = new System.Drawing.Size(44, 13);
-            this.lbNoKontrakDO.TabIndex = 17;
-            this.lbNoKontrakDO.Text = "Kontrak";
             // 
             // btnUpdateDO
             // 
@@ -1269,6 +1310,7 @@ namespace Weighbridge
             this.btnSearchDO.TabIndex = 9;
             this.btnSearchDO.Text = "Search";
             this.btnSearchDO.UseVisualStyleBackColor = true;
+            this.btnSearchDO.Click += new System.EventHandler(this.btnSearchDO_Click);
             // 
             // tbDODocNum
             // 
@@ -1293,6 +1335,24 @@ namespace Weighbridge
             // 
             this.runningTime.Enabled = true;
             this.runningTime.Tick += new System.EventHandler(this.runningTime_Tick);
+            // 
+            // lbValKontrakDO
+            // 
+            this.lbValKontrakDO.AutoSize = true;
+            this.lbValKontrakDO.Location = new System.Drawing.Point(55, 87);
+            this.lbValKontrakDO.Name = "lbValKontrakDO";
+            this.lbValKontrakDO.Size = new System.Drawing.Size(50, 13);
+            this.lbValKontrakDO.TabIndex = 20;
+            this.lbValKontrakDO.Text = ": Kontrak";
+            // 
+            // lbKontrakDO
+            // 
+            this.lbKontrakDO.AutoSize = true;
+            this.lbKontrakDO.Location = new System.Drawing.Point(10, 87);
+            this.lbKontrakDO.Name = "lbKontrakDO";
+            this.lbKontrakDO.Size = new System.Drawing.Size(44, 13);
+            this.lbKontrakDO.TabIndex = 17;
+            this.lbKontrakDO.Text = "Kontrak";
             // 
             // FormSync
             // 
@@ -1370,25 +1430,25 @@ namespace Weighbridge
         private Label lbWINSupir;
         private Label lbWINEksCod;
         private Button btnCariBaseDoc;
-        private TextBox tbWINBaseDoc;
+        private TextBox tbBaseDoc;
         private Label lbWINBaseDoc;
-        private ComboBox cbWINDocType;
-        private TextBox tbWINEksCod;
-        private TextBox tbWINSupir;
-        private TextBox tbWINNopol;
+        private ComboBox cbDocType;
+        private TextBox tbSIMSupir;
+        private TextBox tbNamaSupir;
+        private TextBox tbNopol;
         private TextBox tbQtyMasuk;
         private Button btnTimbangMasuk;
-        private Button btnWINSave;
+        private Button btnWBSave;
         private Label lbUsr;
         private Label lbPass;
         private Label lbDateTime;
         private Timer runningTime;
-        private CheckBox cbWINManual;
+        private CheckBox cbTMManual;
         private GroupBox gbUjiLab;
-        private TextBox textBox2;
-        private CheckBox checkBox1;
+        private TextBox tbQtyNetto;
+        private CheckBox cbTKManual;
         private Button btnTimbangKeluar;
-        private TextBox textBox1;
+        private TextBox tbQtyKeluar;
         private TextBox tbFFA;
         private Label lblFFA;
         private TextBox tbDOBI;
@@ -1400,7 +1460,7 @@ namespace Weighbridge
         private Label lblIMP;
         private Label lblMoist;
         private Label lbHasilUjiLab;
-        private Button button1;
+        private Button btnSubmitUjiLab;
         private TextBox tbJnsTruck;
         private Label lbJnsTruck;
         private Label lblNetto;
@@ -1428,9 +1488,14 @@ namespace Weighbridge
         private TextBox tbQtyTimbangDO;
         private Button btnUpdateDO;
         private Label lbNoKontrak;
-        private Label lbNoKontrakDO;
         private Button btnTestWBConn;
         private Label lbTestQtyTimbang;
+        private Label lbStatusWBConnection;
+        private Label lblValKontrak;
+        private Label lblValDocNo;
+        private Label lblDocNoSAP;
+        private Label lbValKontrakDO;
+        private Label lbKontrakDO;
     }
 }
 
