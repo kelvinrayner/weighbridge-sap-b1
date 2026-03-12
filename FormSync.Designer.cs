@@ -1123,7 +1123,7 @@ namespace Weighbridge
             // 
             // btnCariBaseDoc
             // 
-            this.btnCariBaseDoc.Location = new System.Drawing.Point(287, 29);
+            this.btnCariBaseDoc.Location = new System.Drawing.Point(287, 48);
             this.btnCariBaseDoc.Name = "btnCariBaseDoc";
             this.btnCariBaseDoc.Size = new System.Drawing.Size(56, 20);
             this.btnCariBaseDoc.TabIndex = 6;
@@ -1138,6 +1138,7 @@ namespace Weighbridge
             this.tbBaseDoc.Name = "tbBaseDoc";
             this.tbBaseDoc.Size = new System.Drawing.Size(215, 21);
             this.tbBaseDoc.TabIndex = 5;
+            this.tbBaseDoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBaseDoc_KeyPress);
             // 
             // lbTiketNum
             // 
@@ -1163,7 +1164,6 @@ namespace Weighbridge
             // 
             // tbTiketNum
             // 
-            this.tbTiketNum.Enabled = false;
             this.tbTiketNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbTiketNum.Location = new System.Drawing.Point(13, 71);
             this.tbTiketNum.Name = "tbTiketNum";

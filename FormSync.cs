@@ -29,6 +29,10 @@ namespace Weighbridge
 
         public string timbangType; //A = Auto, M = Manual
 
+        ModGlobal modGlobal = new ModGlobal();
+        SBOConnection oSBOConnection = new SBOConnection();
+        HANAConnetion hanaConn = new HANAConnetion();
+
         public FormSync()
         {
             InitializeComponent();
@@ -183,6 +187,14 @@ namespace Weighbridge
             }
         }
 
+        private void tbBaseDoc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Block the character input
+            }
+        }
+
 
         private void tbQtyKeluar_TextChanged(object sender, EventArgs e)
         {
@@ -232,8 +244,6 @@ namespace Weighbridge
 
         private void btnTestWBConn_Click(object sender, EventArgs e)
         {
-            ModGlobal modGlobal = new ModGlobal();
-
             modGlobal = global();
 
             wbConn = new WBConnection(modGlobal);
@@ -270,70 +280,150 @@ namespace Weighbridge
 
         private void btnCariBaseDoc_Click(object sender, EventArgs e)
         {
-            int objType;
-            int docEntry;
-            string docType = cbDocType.SelectedItem.ToString();
-            string docNum = tbBaseDoc.Text;
-            string noKontrak;
-
-            if (String.IsNullOrEmpty(docType) || String.IsNullOrEmpty(docNum))
+            if (String.IsNullOrEmpty(tbBaseDoc.Text) && String.IsNullOrEmpty(tbTiketNum.Text))
             {
-                MessageBox.Show("Document Type atau Document Number SAP tidak boleh kosong.", "Error - Weighbridge UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Base Document atau Nomor Tiket harus diisi.", "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if(!String.IsNullOrEmpty(tbBaseDoc.Text) && !String.IsNullOrEmpty(tbTiketNum.Text))
+            {
+                MessageBox.Show("Hanya bisa mencari dari Base Document atau Nomor Tiket.", "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (String.IsNullOrEmpty(cbDocType.Text) && !String.IsNullOrEmpty(tbBaseDoc.Text))
+            {
+                MessageBox.Show("Pilih Document Type terlebih dahulu", "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                ModGlobal modGlobal = new ModGlobal();
-                modGlobal = global();
-
-                HANAConnetion hanaConn = new HANAConnetion();
-                string connectionString = hanaConn.HanaConnectionString(modGlobal);
-
-                var connection = new HanaConnection(connectionString);
-
-                using (connection)
+                if (!String.IsNullOrEmpty(tbBaseDoc.Text))
                 {
-                    connection.Open();
+                    int objType;
+                    int docEntry;
+                    string docType = cbDocType.SelectedItem.ToString();
+                    string docNum = tbBaseDoc.Text;
+                    string noKontrak;
 
-                    string queryString = "CALL SOL_SP_ADDON_WB_SEARCH_BASE_DOC('" + docType + "','" + docNum + "')";
-
-                    using (var command = new HanaCommand(queryString, connection))
+                    if (String.IsNullOrEmpty(docType) || String.IsNullOrEmpty(docNum))
                     {
-                        using (var reader = command.ExecuteReader())
+                        MessageBox.Show("Document Type atau Document Number SAP tidak boleh kosong.", "Error - Weighbridge UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        modGlobal = global();
+                        string connectionString = hanaConn.HanaConnectionString(modGlobal);
+
+                        var connection = new HanaConnection(connectionString);
+
+                        using (connection)
                         {
-                            if (!reader.HasRows)
-                            {
-                                MessageBox.Show("Document SAP tidak ditemukan.", "Not Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            connection.Open();
 
-                                DisableFieldWB();
-                            }
-                            else
+                            string queryString = "CALL SOL_SP_ADDON_WB_SEARCH_BASE_DOC('" + docType + "','" + docNum + "')";
+
+                            using (var command = new HanaCommand(queryString, connection))
                             {
-                                while (reader.Read())
+                                using (var reader = command.ExecuteReader())
                                 {
-                                    MessageBox.Show("Document SAP ditemukan.", "Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    if (!reader.HasRows)
+                                    {
+                                        MessageBox.Show("Document SAP tidak ditemukan.", "Not Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                                    objType = Convert.ToInt32(reader["OBJTYPE"]);
-                                    docEntry = Convert.ToInt32(reader["DOCENTRY"]);
-                                    docNum = reader["DOCNUM"].ToString();
-                                    noKontrak = reader["KONTRAK"].ToString();
+                                        DisableFieldWB();
+                                    }
+                                    else
+                                    {
+                                        while (reader.Read())
+                                        {
+                                            MessageBox.Show("Document SAP ditemukan.", "Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                    lblValDocNo.Text =  ": " + docNum;
-                                    lblValKontrak.Text = ": " + noKontrak;
+                                            objType = Convert.ToInt32(reader["OBJTYPE"]);
+                                            docEntry = Convert.ToInt32(reader["DOCENTRY"]);
+                                            docNum = reader["DOCNUM"].ToString();
+                                            noKontrak = reader["KONTRAK"].ToString();
 
-                                    EnableFieldWB();
+                                            lblValDocNo.Text = ": " + docNum;
+                                            lblValKontrak.Text = ": " + noKontrak;
+
+                                            EnableFieldWB();
+                                        }
+                                    }
+                                }
+                            }
+
+                            connection.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    string noTiket = tbTiketNum.Text;
+                    string noKontrak;
+
+                    modGlobal = global();
+                    string connectionString = hanaConn.HanaConnectionString(modGlobal);
+
+                    var connection = new HanaConnection(connectionString);
+
+                    using (connection)
+                    {
+                        connection.Open();
+
+                        string queryString = "CALL SOL_SP_ADDON_WB_SEARCH_NO_TIKET('" + noTiket + "')";
+
+                        using (var command = new HanaCommand(queryString, connection))
+                        {
+                            using (var reader = command.ExecuteReader())
+                            {
+                                if (!reader.HasRows)
+                                {
+                                    MessageBox.Show("Nomor Tiket tidak ditemukan.", "Not Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    DisableFieldWB();
+                                }
+                                else
+                                {
+                                    while (reader.Read())
+                                    {
+                                        MessageBox.Show("Nomor Tiket ditemukan.", "Found - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                        decimal brutoKebun = Convert.ToDecimal(reader["U_SOL_BRUTO_KEBUN"]);
+
+                                        cbDocType.Text = reader["U_SOL_DOC_TYPE"].ToString();
+                                        tbBaseDoc.Text = reader["U_SOL_DOCNUM_SAP"].ToString();
+                                        lblValDocNo.Text = ": " + reader["U_SOL_DOCNUM_SAP"].ToString();
+                                        lblValKontrak.Text = ": " + reader["U_SOL_NO_KONTRAK"].ToString();
+                                        tbNopol.Text = reader["U_SOL_NOPOL"].ToString();
+                                        tbNamaSupir.Text = reader["U_SOL_NAMA_SUPIR"].ToString();
+                                        tbSIMSupir.Text = reader["U_SOL_NO_SIM_SUPIR"].ToString();
+                                        tbJnsTruck.Text = reader["U_SOL_JENIS_TRUCK"].ToString();
+                                        tbBrutoKebun.Text = Convert.ToDecimal(reader["U_SOL_BRUTO_KEBUN"]).ToString("0.##");
+                                        tbTaraKebun.Text = Convert.ToDecimal(reader["U_SOL_TARA_KEBUN"]).ToString("0.##");
+                                        tbNettoKebun.Text = Convert.ToDecimal(reader["U_SOL_NETTO_KEBUN"]).ToString("0.##");
+                                        tbFFAKebun.Text = reader["U_SOL_FFA_KEBUN"].ToString();
+                                        tbMOISTKebun.Text = reader["U_SOL_MOIST_KEBUN"].ToString();
+                                        tbFFA.Text = reader["U_SOL_LAB_FFA"].ToString();
+                                        tbMOIST.Text = reader["U_SOL_LAB_MOIST"].ToString();
+                                        tbDOBI.Text = reader["U_SOL_LAB_IMP"].ToString();
+                                        tbIMP.Text = reader["U_SOL_LAB_DOBI"].ToString();
+                                        tbCAROTINE.Text = reader["U_SOL_LAB_CAROTINE"].ToString();
+                                        tbQtyMasuk.Text = Convert.ToDecimal(reader["U_SOL_BERAT_MASUK"]).ToString("0.##");
+                                        tbQtyKeluar.Text = Convert.ToDecimal(reader["U_SOL_BERAT_KELUAR"]).ToString("0.##");
+                                        tbQtyNetto.Text = Convert.ToDecimal(reader["U_SOL_BERAT_NETTO"]).ToString("0.##");
+
+                                        EnableFieldWB();
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    connection.Close();
+                        connection.Close();
+                    }
                 }
             }
         }
 
         private void btnWBSave_Click(object sender, EventArgs e)
         {
-
+            AddWBUDO();
         }
 
         private void WbConn_WeightReceived(double weight)
@@ -353,7 +443,6 @@ namespace Weighbridge
 
         private void EnableFieldWB()
         {
-            tbTiketNum.Enabled = true;
             tbNopol.Enabled = true;
             tbNamaSupir.Enabled = true;
             tbSIMSupir.Enabled = true;
@@ -381,7 +470,6 @@ namespace Weighbridge
 
         private void DisableFieldWB()
         {
-            tbTiketNum.Enabled = false;
             tbNopol.Enabled = false;
             tbNamaSupir.Enabled = false;
             tbSIMSupir.Enabled = false;
@@ -407,9 +495,32 @@ namespace Weighbridge
             //tbQtyNetto.Enabled = false;
         }
 
+        private void ClearAllField()
+        {
+            cbDocType.Text = String.Empty;
+            tbBaseDoc.Text = String.Empty;
+            tbTiketNum.Text = String.Empty;
+            tbNopol.Text = String.Empty;
+            tbNamaSupir.Text = String.Empty;
+            tbSIMSupir.Text = String.Empty;
+            tbJnsTruck.Text = String.Empty;
+            tbBrutoKebun.Text = String.Empty;
+            tbTaraKebun.Text = String.Empty;
+            tbNettoKebun.Text = String.Empty;
+            tbFFAKebun.Text = String.Empty;
+            tbMOISTKebun.Text = String.Empty;
+            tbFFA.Text = String.Empty;
+            tbMOIST.Text = String.Empty;
+            tbDOBI.Text = String.Empty;
+            tbIMP.Text = String.Empty;
+            tbCAROTINE.Text = String.Empty;
+            tbQtyMasuk.Text = String.Empty;
+            tbQtyKeluar.Text = String.Empty;
+            tbQtyNetto.Text = String.Empty;
+        }
+
         private void SyncGRPO()
         {
-            SBOConnection oSBOConnection = new SBOConnection();
             ModGlobal modGlobal = new ModGlobal();
 
             try
@@ -457,8 +568,38 @@ namespace Weighbridge
 
         private void AddWBUDO()
         {
-            SBOConnection oSBOConnection = new SBOConnection();
-            ModGlobal modGlobal = new ModGlobal();
+            modGlobal = global();
+            string connectionString = hanaConn.HanaConnectionString(modGlobal);
+            var connection = new HanaConnection(connectionString);
+
+            string code = "";
+
+            using (connection)
+            {
+                connection.Open();
+
+                string queryString = "CALL SOL_SP_ADDON_WB_MAX_UDO_CODE()";
+
+                using (var command = new HanaCommand(queryString, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            
+                        }
+                        else
+                        {
+                            while (reader.Read())
+                            {
+                                code = "WB" + reader["CODE"].ToString();
+                            }
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
 
             try
             {
@@ -476,19 +617,21 @@ namespace Weighbridge
 
                 //Specify data for main UDO (Header)
                 oGeneralData = oGeneralService.GetDataInterface(SAPbobsCOM.GeneralServiceDataInterfaces.gsGeneralData);
+                oGeneralData.SetProperty("Code", code);
                 oGeneralData.SetProperty("U_SOL_DOC_TYPE", cbDocType.SelectedItem.ToString());
                 oGeneralData.SetProperty("U_SOL_DOCNUM_SAP", tbBaseDoc.Text);
                 oGeneralData.SetProperty("U_SOL_TIKET_WB", tbTiketNum.Text);
+                oGeneralData.SetProperty("U_SOL_NO_KONTRAK", lblValKontrak.Text);
                 oGeneralData.SetProperty("U_SOL_NOPOL", tbNopol.Text);
                 oGeneralData.SetProperty("U_SOL_NAMA_SUPIR", tbNamaSupir.Text);
                 oGeneralData.SetProperty("U_SOL_NO_SIM_SUPIR", tbSIMSupir.Text);
                 oGeneralData.SetProperty("U_SOL_JENIS_TRUCK", tbJnsTruck.Text);
-                oGeneralData.SetProperty("U_SOL_BERAT_MASUK", tbQtyMasuk.Text);
-                oGeneralData.SetProperty("U_SOL_BERAT_KELUAR", tbQtyKeluar.Text);
-                oGeneralData.SetProperty("U_SOL_BERAT_NETTO", tbQtyNetto.Text);
-                oGeneralData.SetProperty("U_SOL_BRUTO_KEBUN", tbBrutoKebun.Text);
-                oGeneralData.SetProperty("U_SOL_TARA_KEBUN", tbTaraKebun.Text);
-                oGeneralData.SetProperty("U_SOL_NETTO_KEBUN", tbNettoKebun.Text);
+                oGeneralData.SetProperty("U_SOL_BERAT_MASUK", Convert.ToDouble(tbQtyMasuk.Text));
+                oGeneralData.SetProperty("U_SOL_BERAT_KELUAR", Convert.ToDouble(tbQtyKeluar.Text));
+                oGeneralData.SetProperty("U_SOL_BERAT_NETTO", Convert.ToDouble(tbQtyNetto.Text));
+                oGeneralData.SetProperty("U_SOL_BRUTO_KEBUN", Convert.ToDouble(tbBrutoKebun.Text));
+                oGeneralData.SetProperty("U_SOL_TARA_KEBUN", Convert.ToDouble(tbTaraKebun.Text));
+                oGeneralData.SetProperty("U_SOL_NETTO_KEBUN", Convert.ToDouble(tbNettoKebun.Text));
                 oGeneralData.SetProperty("U_SOL_FFA_KEBUN", tbFFAKebun.Text);
                 oGeneralData.SetProperty("U_SOL_MOIST_KEBUN", tbMOIST.Text);
                 oGeneralData.SetProperty("U_SOL_LAB_FFA", tbFFA.Text);
@@ -502,10 +645,112 @@ namespace Weighbridge
 
                 oSBOConnection.oCompany.Disconnect();
 
+                MessageBox.Show("Data added. Check on Weighbridge Data in SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ClearAllField();
+                DisableFieldWB();
+                tbBaseDoc.Focus();
+
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void UpdateWBUDO(string docNumSAP)
+        {
+            modGlobal = global();
+            string connectionString = hanaConn.HanaConnectionString(modGlobal);
+            var connection = new HanaConnection(connectionString);
+
+            string code = "";
+
+            using (connection)
+            {
+                connection.Open();
+
+                string queryString = "CALL SOL_SP_ADDON_WB_SEARCH_CODE_UDO('" + docNumSAP + "')";
+
+                using (var command = new HanaCommand(queryString, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+
+                        }
+                        else
+                        {
+                            while (reader.Read())
+                            {
+                                code = reader["CODE"].ToString();
+                            }
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            try
+            {
+                oSBOConnection.connectSBO(global());
+
+                //Declare all SAPbobsCOM untuk DI API UDO
+                SAPbobsCOM.GeneralService oGeneralService;
+                SAPbobsCOM.GeneralData oGeneralData;
+                SAPbobsCOM.GeneralDataParams oGeneralParams;
+
+                SAPbobsCOM.CompanyService oSTR = null;
+                oSTR = oSBOConnection.oCompany.GetCompanyService();
+
+                //Get a handle to the Stock Request UDO
+                oGeneralService = oSTR.GetGeneralService("OWB");
+                oGeneralParams = oGeneralService.GetDataInterface(SAPbobsCOM.GeneralServiceDataInterfaces.gsGeneralDataParams);
+
+                oGeneralParams.SetProperty("Code", code);
+                oGeneralData = oGeneralService.GetByParams(oGeneralParams);
+
+                //Specify data for main UDO (Header)
+                oGeneralData = oGeneralService.GetDataInterface(SAPbobsCOM.GeneralServiceDataInterfaces.gsGeneralData);
+                oGeneralData.SetProperty("Code", code);
+                oGeneralData.SetProperty("U_SOL_DOC_TYPE", cbDocType.SelectedItem.ToString());
+                oGeneralData.SetProperty("U_SOL_DOCNUM_SAP", tbBaseDoc.Text);
+                oGeneralData.SetProperty("U_SOL_TIKET_WB", tbTiketNum.Text);
+                oGeneralData.SetProperty("U_SOL_NOPOL", tbNopol.Text);
+                oGeneralData.SetProperty("U_SOL_NAMA_SUPIR", tbNamaSupir.Text);
+                oGeneralData.SetProperty("U_SOL_NO_SIM_SUPIR", tbSIMSupir.Text);
+                oGeneralData.SetProperty("U_SOL_JENIS_TRUCK", tbJnsTruck.Text);
+                oGeneralData.SetProperty("U_SOL_BERAT_MASUK", Convert.ToDouble(tbQtyMasuk.Text));
+                oGeneralData.SetProperty("U_SOL_BERAT_KELUAR", Convert.ToDouble(tbQtyKeluar.Text));
+                oGeneralData.SetProperty("U_SOL_BERAT_NETTO", Convert.ToDouble(tbQtyNetto.Text));
+                oGeneralData.SetProperty("U_SOL_BRUTO_KEBUN", Convert.ToDouble(tbBrutoKebun.Text));
+                oGeneralData.SetProperty("U_SOL_TARA_KEBUN", Convert.ToDouble(tbTaraKebun.Text));
+                oGeneralData.SetProperty("U_SOL_NETTO_KEBUN", Convert.ToDouble(tbNettoKebun.Text));
+                oGeneralData.SetProperty("U_SOL_FFA_KEBUN", tbFFAKebun.Text);
+                oGeneralData.SetProperty("U_SOL_MOIST_KEBUN", tbMOIST.Text);
+                oGeneralData.SetProperty("U_SOL_LAB_FFA", tbFFA.Text);
+                oGeneralData.SetProperty("U_SOL_LAB_MOIST", tbMOIST.Text);
+                oGeneralData.SetProperty("U_SOL_LAB_IMP", tbIMP.Text);
+                oGeneralData.SetProperty("U_SOL_LAB_DOBI", tbDOBI.Text);
+                oGeneralData.SetProperty("U_SOL_LAB_CAROTINE", tbCAROTINE.Text);
+
+                //Add records
+                oGeneralService.Add(oGeneralData);
+
+                oSBOConnection.oCompany.Disconnect();
+
+                MessageBox.Show("Data added. Check on Weighbridge Data in SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ClearAllField();
+                DisableFieldWB();
+                tbBaseDoc.Focus();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
