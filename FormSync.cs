@@ -348,10 +348,12 @@ namespace Weighbridge
                                                         docEntry = Convert.ToInt32(reader2["DOCENTRY"]);
                                                         docNum = reader2["DOCNUM"].ToString();
                                                         noKontrak = reader2["KONTRAK"].ToString();
+                                                        int linenumSAP = Convert.ToInt32(reader2["LINENUM"]);
 
                                                         lblValDocNo.Text = ": " + docNum;
                                                         lblValKontrak.Text = ": " + noKontrak;
                                                         lbValDocEntSAP.Text = docEntry.ToString();
+                                                        lblValLineNumSAP.Text = linenumSAP.ToString();
 
                                                         EnableFieldWB();
 
@@ -372,6 +374,7 @@ namespace Weighbridge
                                             docEntry = Convert.ToInt32(reader["U_SOL_DOC_ENTRY_SAP"]);
                                             docNum = reader["U_SOL_DOCNUM_SAP"].ToString();
                                             noKontrak = reader["U_SOL_NO_KONTRAK"].ToString();
+                                            int linenumSAP = Convert.ToInt32(reader["U_SOL_LINENUM_SAP"]);
 
                                             lblValDocNo.Text = ": " + docNum;
                                             lblValKontrak.Text = ": " + noKontrak;
@@ -399,6 +402,7 @@ namespace Weighbridge
                                             tbQtyKeluar.Text = Convert.ToDecimal(reader["U_SOL_BERAT_KELUAR"]).ToString("0.##");
                                             tbQtyNetto.Text = Convert.ToDecimal(reader["U_SOL_BERAT_NETTO"]).ToString("0.##");
                                             lbValDocEntSAP.Text = docEntry.ToString();
+                                            lblValLineNumSAP.Text = linenumSAP.ToString();
 
                                             EnableFieldWB();
                                             btnCariBaseDoc.Visible = false;
@@ -451,6 +455,7 @@ namespace Weighbridge
                                         tbBaseDoc.Text = reader["U_SOL_DOCNUM_SAP"].ToString();
                                         lblValDocNo.Text = ": " + reader["U_SOL_DOCNUM_SAP"].ToString();
                                         lbValDocEntSAP.Text = reader["U_SOL_DOC_ENTRY_SAP"].ToString();
+                                        lblValLineNumSAP.Text = reader["U_SOL_LINENUM_SAP"].ToString();
                                         lblValStatusWB.Text = reader["U_SOL_STATUS"].ToString();
                                         lblValKontrak.Text = ": " + reader["U_SOL_NO_KONTRAK"].ToString();
                                         tbNopol.Text = reader["U_SOL_NOPOL"].ToString();
@@ -530,7 +535,8 @@ namespace Weighbridge
             {
                 try
                 {
-                    AddWBUDO();
+                    string wbStatus = "WEIGHIN";
+                    AddWBUDO(wbStatus);
                     //UpdatePO(docEntrySAP);
 
                     MessageBox.Show("Data added. Check on Weighbridge Data in SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -550,7 +556,14 @@ namespace Weighbridge
             {
                 try
                 {
-                    UpdateWBUDO(tiketNum);
+                    if (cbDocType.SelectedItem.ToString() == "PO")
+                    {
+                        SyncGRPO();
+                    }
+                    else
+                    {
+                        SyncDO();
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -586,45 +599,58 @@ namespace Weighbridge
 
         private void EnableFieldWB()
         {
-            tbNopol.Enabled = true;
-            tbNamaSupir.Enabled = true;
-            tbSIMSupir.Enabled = true;
-            tbJnsTruck.Enabled = true;
-            tbBrutoKebun.Enabled = true;
-            tbTaraKebun.Enabled = true;
-            tbNettoKebun.Enabled = true;
-            tbFFAKebun.Enabled = true;
-            tbMOISTKebun.Enabled = true;
-            tbFFA.Enabled = true;
-            tbMOIST.Enabled = true;
-            tbIMP.Enabled = true;
-            tbDOBI.Enabled = true;
-            tbCAROTINE.Enabled = true;
-            cbTMManual.Enabled = true;
-            cbTKManual.Enabled = true;
-            btnTimbangMasuk.Enabled = true;
-            btnTimbangKeluar.Enabled = true;
-            btnSubmitUjiLab.Enabled = true;
-            btnWBSave.Enabled = true;
-            //tbQtyMasuk.Enabled = true;
-            //tbQtyKeluar.Enabled = true;
-            //tbQtyNetto.Enabled = true;
-
-
             if (lblValStatusWB.Text == "WEIGHIN")
             {
+                tbNopol.Enabled = true;
+                tbNamaSupir.Enabled = true;
+                tbSIMSupir.Enabled = true;
+                tbJnsTruck.Enabled = true;
+                tbBrutoKebun.Enabled = true;
+                tbTaraKebun.Enabled = true;
+                tbNettoKebun.Enabled = true;
+                tbFFAKebun.Enabled = true;
+                tbMOISTKebun.Enabled = true;
+                tbFFA.Enabled = true;
+                tbMOIST.Enabled = true;
+                tbIMP.Enabled = true;
+                tbDOBI.Enabled = true;
+                tbCAROTINE.Enabled = true;
                 cbTMManual.Enabled = false;
+                cbTKManual.Enabled = true;
                 btnTimbangMasuk.Enabled = false;
-                btnTimbangMasuk.Enabled = false;
+                btnTimbangKeluar.Enabled = true;
+                btnSubmitUjiLab.Enabled = true;
+                btnWBSave.Enabled = true;
             }
-            else if(lblValStatusWB.Text == "WEIGHOUT")
+            else if(lblValStatusWB.Text == "WEIGHOUT" || lblValStatusWB.Text == "SYNCSAP")
             {
-                cbTMManual.Enabled = false;
-                btnTimbangMasuk.Enabled = false;
-                btnTimbangMasuk.Enabled = false;
+                DisableFieldWB();
+            }
+            else
+            {
+                tbNopol.Enabled = true;
+                tbNamaSupir.Enabled = true;
+                tbSIMSupir.Enabled = true;
+                tbJnsTruck.Enabled = true;
+                tbBrutoKebun.Enabled = true;
+                tbTaraKebun.Enabled = true;
+                tbNettoKebun.Enabled = true;
+                tbFFAKebun.Enabled = true;
+                tbMOISTKebun.Enabled = true;
+                tbFFA.Enabled = true;
+                tbMOIST.Enabled = true;
+                tbIMP.Enabled = true;
+                tbDOBI.Enabled = true;
+                tbCAROTINE.Enabled = true;
+                cbTMManual.Enabled = true;
                 cbTKManual.Enabled = false;
+                btnTimbangMasuk.Enabled = true;
                 btnTimbangKeluar.Enabled = false;
-                btnTimbangKeluar.Enabled = false;
+                btnSubmitUjiLab.Enabled = true;
+                btnWBSave.Enabled = true;
+                //tbQtyMasuk.Enabled = true;
+                //tbQtyKeluar.Enabled = true;
+                //tbQtyNetto.Enabled = true;
             }
 
         }
@@ -681,6 +707,7 @@ namespace Weighbridge
             tbQtyMasuk.Text = String.Empty;
             tbQtyKeluar.Text = String.Empty;
             tbQtyNetto.Text = String.Empty;
+            lblValStatusWB.Text = String.Empty;
         }
 
         private void SyncGRPO()
@@ -689,48 +716,100 @@ namespace Weighbridge
 
             try
             {
-                //oSBOConnection.connectSBO(global());
+                oSBOConnection.connectSBO(global());
 
-                //Documents oGRPO = null;
-                //oGRPO = oSBOConnection.oCompany.GetBusinessObject(BoObjectTypes.oPurchaseDeliveryNotes);
+                oSBOConnection.oCompany.StartTransaction();
 
-                //oGRPO.DocDate = DateTime.Today;
-                //oGRPO.Comments = grpo.Remarks;
-                //oGRPO.UserFields.Fields.Item("U_SOL_SOPIR").Value = grpo.Supir;
-                //oGRPO.UserFields.Fields.Item("U_RKM_NO_KENDARAAN").Value = grpo.NoKendaraan;
-                //oGRPO.UserFields.Fields.Item("U_RKM_DIBUAT_OLEH_GRPO").Value = grpo.WmsUser;
-                //oGRPO.UserFields.Fields.Item("U_SOL_WMS_NO").Value = grpo.WmsNo;
-                //oGRPO.NumAtCard = grpo.VendorRefNo;
+                Documents oGRPO = null;
+                oGRPO = oSBOConnection.oCompany.GetBusinessObject(BoObjectTypes.oPurchaseDeliveryNotes);
 
+                oGRPO.DocDate = DateTime.Today;
+                oGRPO.UserFields.Fields.Item("U_SOL_NO_TIKET_WB").Value = tbTiketNum.Text;
+                oGRPO.Comments = "Generated by Weighbridge Addon.";
 
-                //oGRPO.Lines.BaseType = 22;
-                //oGRPO.Lines.BaseEntry = grpodetail.PODocEntry;
-                //oGRPO.Lines.BaseLine = grpodetail.LineNo - 1;
+                oGRPO.Lines.BaseType = 22;
+                oGRPO.Lines.BaseEntry = Convert.ToInt32(lbValDocEntSAP.Text);
+                oGRPO.Lines.BaseLine = Convert.ToInt32(lblValLineNumSAP.Text);
                 //oGRPO.Lines.ItemCode = grpodetail.ItemCode;
                 //oGRPO.Lines.ItemDescription = grpodetail.ItemName;
-                //oGRPO.Lines.Quantity = grpodetail.TotalQty;
+                oGRPO.Lines.Quantity = Convert.ToDouble(tbQtyNetto.Text);
                 //oGRPO.Lines.WarehouseCode = grpo.Warehouse;
-                ////oDO.Lines.LineNum = dodetail.LineNo;
 
-                //oGRPO.Lines.Add();
+                oGRPO.Lines.Add();
 
-                //int retval = 0;
+                int retval = 0;
 
-                //retval = oGRPO.Add();
+                retval = oGRPO.Add();
+
+                if (retval == 0)
+                {
+                    string wbStatus = "SYNCSAP";
+                    UpdateWBUDO(tbTiketNum.Text, wbStatus);
+                }
+                else
+                {
+                    oSBOConnection.oCompany.Disconnect();
+                    MessageBox.Show("Error : " + oSBOConnection.oCompany.GetLastErrorDescription().Replace("'", "").Replace("\"", ""), "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
             }
             catch (Exception ex)
             {
-
+                oSBOConnection.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void SyncDO()
         {
+            ModGlobal modGlobal = new ModGlobal();
 
+            try
+            {
+                oSBOConnection.connectSBO(global());
+
+                oSBOConnection.oCompany.StartTransaction();
+
+                Documents oDO = null;
+                oDO = oSBOConnection.oCompany.GetBusinessObject(BoObjectTypes.oDeliveryNotes);
+
+                oDO.DocDate = DateTime.Today;
+                oDO.UserFields.Fields.Item("U_SOL_NO_TIKET_WB").Value = tbTiketNum.Text;
+                oDO.Comments = "Generated by Weighbridge Addon.";
+
+                oDO.Lines.BaseType = 17;
+                oDO.Lines.BaseEntry = Convert.ToInt32(lbValDocEntSAP.Text);
+                oDO.Lines.BaseLine = Convert.ToInt32(lblValLineNumSAP.Text);
+                //oDO.Lines.ItemCode = grpodetail.ItemCode;
+                //oDO.Lines.ItemDescription = grpodetail.ItemName;
+                oDO.Lines.Quantity = Convert.ToDouble(tbQtyNetto.Text);
+                //oDO.Lines.WarehouseCode = grpo.Warehouse;
+
+                oDO.Lines.Add();
+
+                int retval = 0;
+
+                retval = oDO.Add();
+
+                if (retval == 0)
+                {
+                    string wbStatus = "SYNCSAP";
+                    UpdateWBUDO(tbTiketNum.Text, wbStatus);
+                }
+                else
+                {
+                    oSBOConnection.oCompany.Disconnect();
+                    MessageBox.Show("Error : " + oSBOConnection.oCompany.GetLastErrorDescription().Replace("'", "").Replace("\"", ""), "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void AddWBUDO()
+        private void AddWBUDO(string wbStatus)
         {
             modGlobal = global();
             string connectionString = hanaConn.HanaConnectionString(modGlobal);
@@ -804,6 +883,8 @@ namespace Weighbridge
                 oGeneralData.SetProperty("U_SOL_LAB_IMP", tbIMP.Text);
                 oGeneralData.SetProperty("U_SOL_LAB_DOBI", tbDOBI.Text);
                 oGeneralData.SetProperty("U_SOL_LAB_CAROTINE", tbCAROTINE.Text);
+                oGeneralData.SetProperty("U_SOL_STATUS", wbStatus);
+                oGeneralData.SetProperty("U_SOL_LINENUM_SAP", Convert.ToInt32(lblValLineNumSAP.Text));
 
                 //Add records
                 oGeneralService.Add(oGeneralData);
@@ -812,11 +893,12 @@ namespace Weighbridge
             }
             catch (Exception ex)
             {
+                oSBOConnection.oCompany.Disconnect();
                 MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void UpdateWBUDO(string tiketNum)
+        private void UpdateWBUDO(string tiketNum, string wbStatus)
         {
             modGlobal = global();
             string connectionString = hanaConn.HanaConnectionString(modGlobal);
@@ -853,7 +935,7 @@ namespace Weighbridge
 
             try
             {
-                oSBOConnection.connectSBO(global());
+                //oSBOConnection.connectSBO(global());
 
                 //Declare all SAPbobsCOM untuk DI API UDO
                 SAPbobsCOM.GeneralService oGeneralService;
@@ -874,6 +956,7 @@ namespace Weighbridge
                 oGeneralData = oGeneralService.GetDataInterface(SAPbobsCOM.GeneralServiceDataInterfaces.gsGeneralData);
                 oGeneralData.SetProperty("Code", code);
                 oGeneralData.SetProperty("U_SOL_DOC_TYPE", cbDocType.SelectedItem.ToString());
+                oGeneralData.SetProperty("U_SOL_DOC_ENTRY_SAP", Convert.ToInt32(lbValDocEntSAP.Text));
                 oGeneralData.SetProperty("U_SOL_DOCNUM_SAP", tbBaseDoc.Text);
                 oGeneralData.SetProperty("U_SOL_TIKET_WB", tbTiketNum.Text);
                 oGeneralData.SetProperty("U_SOL_NOPOL", tbNopol.Text);
@@ -893,13 +976,18 @@ namespace Weighbridge
                 oGeneralData.SetProperty("U_SOL_LAB_IMP", tbIMP.Text);
                 oGeneralData.SetProperty("U_SOL_LAB_DOBI", tbDOBI.Text);
                 oGeneralData.SetProperty("U_SOL_LAB_CAROTINE", tbCAROTINE.Text);
+                oGeneralData.SetProperty("U_SOL_STATUS", wbStatus);
+                oGeneralData.SetProperty("U_SOL_LINENUM_SAP", Convert.ToInt32(lblValLineNumSAP.Text));
 
                 //Add records
                 oGeneralService.Update(oGeneralData);
+                oSBOConnection.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
 
                 oSBOConnection.oCompany.Disconnect();
 
-                MessageBox.Show("Data updated. Check on Weighbridge Data in SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Data updated. Check on Weighbridge Data in SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show("Data Synced to SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ClearAllField();
                 DisableFieldWB();

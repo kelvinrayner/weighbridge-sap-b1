@@ -76,6 +76,7 @@ namespace Weighbridge
             this.lbBaudRate = new System.Windows.Forms.Label();
             this.lbPort = new System.Windows.Forms.Label();
             this.tabWB = new System.Windows.Forms.TabPage();
+            this.btnRefreshData = new System.Windows.Forms.Button();
             this.lbValDocEntSAP = new System.Windows.Forms.Label();
             this.lblValKontrak = new System.Windows.Forms.Label();
             this.lblValDocNo = new System.Windows.Forms.Label();
@@ -86,6 +87,8 @@ namespace Weighbridge
             this.lbDateTime = new System.Windows.Forms.Label();
             this.cbDocType = new System.Windows.Forms.ComboBox();
             this.gbWINKen = new System.Windows.Forms.GroupBox();
+            this.lblValStatusWB = new System.Windows.Forms.Label();
+            this.lblStatusWB = new System.Windows.Forms.Label();
             this.tbMOISTKebun = new System.Windows.Forms.TextBox();
             this.tbFFAKebun = new System.Windows.Forms.TextBox();
             this.lbMOISTKebun = new System.Windows.Forms.Label();
@@ -141,9 +144,7 @@ namespace Weighbridge
             this.tbDODocNum = new System.Windows.Forms.TextBox();
             this.lbDODocNum = new System.Windows.Forms.Label();
             this.runningTime = new System.Windows.Forms.Timer(this.components);
-            this.btnRefreshData = new System.Windows.Forms.Button();
-            this.lblStatusWB = new System.Windows.Forms.Label();
-            this.lblValStatusWB = new System.Windows.Forms.Label();
+            this.lblValLineNumSAP = new System.Windows.Forms.Label();
             this.tabCtrlMain.SuspendLayout();
             this.tabLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -648,6 +649,7 @@ namespace Weighbridge
             // 
             // tabWB
             // 
+            this.tabWB.Controls.Add(this.lblValLineNumSAP);
             this.tabWB.Controls.Add(this.btnRefreshData);
             this.tabWB.Controls.Add(this.lbValDocEntSAP);
             this.tabWB.Controls.Add(this.lblValKontrak);
@@ -678,10 +680,21 @@ namespace Weighbridge
             this.tabWB.Text = "Weighbridge IN & OUT";
             this.tabWB.UseVisualStyleBackColor = true;
             // 
+            // btnRefreshData
+            // 
+            this.btnRefreshData.Location = new System.Drawing.Point(320, 6);
+            this.btnRefreshData.Name = "btnRefreshData";
+            this.btnRefreshData.Size = new System.Drawing.Size(75, 23);
+            this.btnRefreshData.TabIndex = 17;
+            this.btnRefreshData.Text = "Refresh";
+            this.btnRefreshData.UseVisualStyleBackColor = true;
+            this.btnRefreshData.Visible = false;
+            this.btnRefreshData.Click += new System.EventHandler(this.btnRefreshData_Click);
+            // 
             // lbValDocEntSAP
             // 
             this.lbValDocEntSAP.AutoSize = true;
-            this.lbValDocEntSAP.Location = new System.Drawing.Point(284, 124);
+            this.lbValDocEntSAP.Location = new System.Drawing.Point(284, 101);
             this.lbValDocEntSAP.Name = "lbValDocEntSAP";
             this.lbValDocEntSAP.Size = new System.Drawing.Size(72, 13);
             this.lbValDocEntSAP.TabIndex = 16;
@@ -794,6 +807,32 @@ namespace Weighbridge
             this.gbWINKen.TabIndex = 3;
             this.gbWINKen.TabStop = false;
             this.gbWINKen.Text = "Timbangan Masuk dan Keluar";
+            // 
+            // lblValStatusWB
+            // 
+            this.lblValStatusWB.AutoSize = true;
+            this.lblValStatusWB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lblValStatusWB.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblValStatusWB.Location = new System.Drawing.Point(565, 302);
+            this.lblValStatusWB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblValStatusWB.Name = "lblValStatusWB";
+            this.lblValStatusWB.Size = new System.Drawing.Size(54, 17);
+            this.lblValStatusWB.TabIndex = 30;
+            this.lblValStatusWB.Text = "Status";
+            this.lblValStatusWB.Visible = false;
+            // 
+            // lblStatusWB
+            // 
+            this.lblStatusWB.AutoSize = true;
+            this.lblStatusWB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lblStatusWB.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblStatusWB.Location = new System.Drawing.Point(485, 302);
+            this.lblStatusWB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusWB.Name = "lblStatusWB";
+            this.lblStatusWB.Size = new System.Drawing.Size(84, 17);
+            this.lblStatusWB.TabIndex = 29;
+            this.lblStatusWB.Text = "STATUS : ";
+            this.lblStatusWB.Visible = false;
             // 
             // tbMOISTKebun
             // 
@@ -1373,42 +1412,15 @@ namespace Weighbridge
             this.runningTime.Enabled = true;
             this.runningTime.Tick += new System.EventHandler(this.runningTime_Tick);
             // 
-            // btnRefreshData
+            // lblValLineNumSAP
             // 
-            this.btnRefreshData.Location = new System.Drawing.Point(320, 6);
-            this.btnRefreshData.Name = "btnRefreshData";
-            this.btnRefreshData.Size = new System.Drawing.Size(75, 23);
-            this.btnRefreshData.TabIndex = 17;
-            this.btnRefreshData.Text = "Refresh";
-            this.btnRefreshData.UseVisualStyleBackColor = true;
-            this.btnRefreshData.Visible = false;
-            this.btnRefreshData.Click += new System.EventHandler(this.btnRefreshData_Click);
-            // 
-            // lblStatusWB
-            // 
-            this.lblStatusWB.AutoSize = true;
-            this.lblStatusWB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblStatusWB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblStatusWB.Location = new System.Drawing.Point(485, 302);
-            this.lblStatusWB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblStatusWB.Name = "lblStatusWB";
-            this.lblStatusWB.Size = new System.Drawing.Size(84, 17);
-            this.lblStatusWB.TabIndex = 29;
-            this.lblStatusWB.Text = "STATUS : ";
-            this.lblStatusWB.Visible = false;
-            // 
-            // lblValStatusWB
-            // 
-            this.lblValStatusWB.AutoSize = true;
-            this.lblValStatusWB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblValStatusWB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblValStatusWB.Location = new System.Drawing.Point(565, 302);
-            this.lblValStatusWB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblValStatusWB.Name = "lblValStatusWB";
-            this.lblValStatusWB.Size = new System.Drawing.Size(54, 17);
-            this.lblValStatusWB.TabIndex = 30;
-            this.lblValStatusWB.Text = "Status";
-            this.lblValStatusWB.Visible = false;
+            this.lblValLineNumSAP.AutoSize = true;
+            this.lblValLineNumSAP.Location = new System.Drawing.Point(284, 124);
+            this.lblValLineNumSAP.Name = "lblValLineNumSAP";
+            this.lblValLineNumSAP.Size = new System.Drawing.Size(70, 13);
+            this.lblValLineNumSAP.TabIndex = 18;
+            this.lblValLineNumSAP.Text = "LineNumSAP";
+            this.lblValLineNumSAP.Visible = false;
             // 
             // FormSync
             // 
@@ -1556,6 +1568,7 @@ namespace Weighbridge
         private Button btnRefreshData;
         private Label lblStatusWB;
         private Label lblValStatusWB;
+        private Label lblValLineNumSAP;
     }
 }
 
