@@ -76,6 +76,7 @@ namespace Weighbridge
             this.lbBaudRate = new System.Windows.Forms.Label();
             this.lbPort = new System.Windows.Forms.Label();
             this.tabWB = new System.Windows.Forms.TabPage();
+            this.lblValLineNumSAP = new System.Windows.Forms.Label();
             this.btnRefreshData = new System.Windows.Forms.Button();
             this.lbValDocEntSAP = new System.Windows.Forms.Label();
             this.lblValKontrak = new System.Windows.Forms.Label();
@@ -133,6 +134,8 @@ namespace Weighbridge
             this.tbNamaSupir = new System.Windows.Forms.TextBox();
             this.lbWINEksCod = new System.Windows.Forms.Label();
             this.tabUpdateDO = new System.Windows.Forms.TabPage();
+            this.lblValLineNumDOSAP = new System.Windows.Forms.Label();
+            this.lblValDocEntDOSAP = new System.Windows.Forms.Label();
             this.lbValKontrakDO = new System.Windows.Forms.Label();
             this.lbKontrakDO = new System.Windows.Forms.Label();
             this.btnUpdateDO = new System.Windows.Forms.Button();
@@ -144,7 +147,6 @@ namespace Weighbridge
             this.tbDODocNum = new System.Windows.Forms.TextBox();
             this.lbDODocNum = new System.Windows.Forms.Label();
             this.runningTime = new System.Windows.Forms.Timer(this.components);
-            this.lblValLineNumSAP = new System.Windows.Forms.Label();
             this.tabCtrlMain.SuspendLayout();
             this.tabLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -679,6 +681,16 @@ namespace Weighbridge
             this.tabWB.TabIndex = 2;
             this.tabWB.Text = "Weighbridge IN & OUT";
             this.tabWB.UseVisualStyleBackColor = true;
+            // 
+            // lblValLineNumSAP
+            // 
+            this.lblValLineNumSAP.AutoSize = true;
+            this.lblValLineNumSAP.Location = new System.Drawing.Point(284, 124);
+            this.lblValLineNumSAP.Name = "lblValLineNumSAP";
+            this.lblValLineNumSAP.Size = new System.Drawing.Size(70, 13);
+            this.lblValLineNumSAP.TabIndex = 18;
+            this.lblValLineNumSAP.Text = "LineNumSAP";
+            this.lblValLineNumSAP.Visible = false;
             // 
             // btnRefreshData
             // 
@@ -1280,6 +1292,8 @@ namespace Weighbridge
             // 
             // tabUpdateDO
             // 
+            this.tabUpdateDO.Controls.Add(this.lblValLineNumDOSAP);
+            this.tabUpdateDO.Controls.Add(this.lblValDocEntDOSAP);
             this.tabUpdateDO.Controls.Add(this.lbValKontrakDO);
             this.tabUpdateDO.Controls.Add(this.lbKontrakDO);
             this.tabUpdateDO.Controls.Add(this.btnUpdateDO);
@@ -1296,6 +1310,26 @@ namespace Weighbridge
             this.tabUpdateDO.TabIndex = 3;
             this.tabUpdateDO.Text = "Update Delivery Order";
             this.tabUpdateDO.UseVisualStyleBackColor = true;
+            // 
+            // lblValLineNumDOSAP
+            // 
+            this.lblValLineNumDOSAP.AutoSize = true;
+            this.lblValLineNumDOSAP.Location = new System.Drawing.Point(10, 132);
+            this.lblValLineNumDOSAP.Name = "lblValLineNumDOSAP";
+            this.lblValLineNumDOSAP.Size = new System.Drawing.Size(70, 13);
+            this.lblValLineNumDOSAP.TabIndex = 22;
+            this.lblValLineNumDOSAP.Text = "LineNumSAP";
+            this.lblValLineNumDOSAP.Visible = false;
+            // 
+            // lblValDocEntDOSAP
+            // 
+            this.lblValDocEntDOSAP.AutoSize = true;
+            this.lblValDocEntDOSAP.Location = new System.Drawing.Point(10, 109);
+            this.lblValDocEntDOSAP.Name = "lblValDocEntDOSAP";
+            this.lblValDocEntDOSAP.Size = new System.Drawing.Size(72, 13);
+            this.lblValDocEntDOSAP.TabIndex = 21;
+            this.lblValDocEntDOSAP.Text = "DocEntrySAP";
+            this.lblValDocEntDOSAP.Visible = false;
             // 
             // lbValKontrakDO
             // 
@@ -1326,6 +1360,7 @@ namespace Weighbridge
             this.btnUpdateDO.TabIndex = 16;
             this.btnUpdateDO.Text = "Update DO";
             this.btnUpdateDO.UseVisualStyleBackColor = true;
+            this.btnUpdateDO.Click += new System.EventHandler(this.btnUpdateDO_Click);
             // 
             // cbManualDO
             // 
@@ -1411,16 +1446,6 @@ namespace Weighbridge
             // 
             this.runningTime.Enabled = true;
             this.runningTime.Tick += new System.EventHandler(this.runningTime_Tick);
-            // 
-            // lblValLineNumSAP
-            // 
-            this.lblValLineNumSAP.AutoSize = true;
-            this.lblValLineNumSAP.Location = new System.Drawing.Point(284, 124);
-            this.lblValLineNumSAP.Name = "lblValLineNumSAP";
-            this.lblValLineNumSAP.Size = new System.Drawing.Size(70, 13);
-            this.lblValLineNumSAP.TabIndex = 18;
-            this.lblValLineNumSAP.Text = "LineNumSAP";
-            this.lblValLineNumSAP.Visible = false;
             // 
             // FormSync
             // 
@@ -1569,6 +1594,8 @@ namespace Weighbridge
         private Label lblStatusWB;
         private Label lblValStatusWB;
         private Label lblValLineNumSAP;
+        private Label lblValLineNumDOSAP;
+        private Label lblValDocEntDOSAP;
     }
 }
 

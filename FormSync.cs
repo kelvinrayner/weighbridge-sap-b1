@@ -710,6 +710,19 @@ namespace Weighbridge
             lblValStatusWB.Text = String.Empty;
         }
 
+        private void ClearAllFieldUpdateDO()
+        {
+            cbManualDO.Checked = false;
+            tbDODocNum.Text = String.Empty;
+            lbValKontrakDO.Text = String.Empty;
+            lblValDocEntDOSAP.Text = String.Empty;
+            lblValLineNumDOSAP.Text = String.Empty;
+            tbQtyTimbangDO.Text = "0";
+            btnUpdateDO.Enabled = false;
+            cbManualDO.Enabled = false;
+            btnTimbangDO.Enabled = false;
+        }
+
         private void SyncGRPO()
         {
             ModGlobal modGlobal = new ModGlobal();
@@ -1027,6 +1040,51 @@ namespace Weighbridge
             }
         }
 
+        private void UpdateDO(int docEntryDOSAP, int lineNumDOSAP, double qtyTimbangDO)
+        {
+            modGlobal = global();
+
+            try
+            {
+                oSBOConnection.connectSBO(global());
+
+                SAPbobsCOM.Documents oDO = null;
+                oDO = oSBOConnection.oCompany.GetBusinessObject(BoObjectTypes.oDeliveryNotes);
+
+                oDO.GetByKey(docEntryDOSAP);
+
+                oDO.Lines.SetCurrentLine(Convert.ToInt32(lineNumDOSAP));
+                oDO.Lines.UserFields.Fields.Item("U_SOL_QTY_WB").Value = qtyTimbangDO;
+
+                int retval = 0;
+
+                retval = oDO.Update();
+
+                if(retval == 0)
+                {
+                    oSBOConnection.oCompany.Disconnect();
+                    MessageBox.Show("Data Updated to SAP", "Success - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ClearAllFieldUpdateDO();
+                }
+                else
+                {
+                    oSBOConnection.oCompany.Disconnect();
+                    MessageBox.Show("Error : " + oSBOConnection.oCompany.GetLastErrorDescription().Replace("'", "").Replace("\"", ""), "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    ClearAllFieldUpdateDO();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                oSBOConnection.oCompany.Disconnect();
+                MessageBox.Show("Error : " + ex.Message, "Error - Weighbridge", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                ClearAllFieldUpdateDO();
+            }
+        }
+
         #endregion
 
         #region Update DO
@@ -1114,8 +1172,11 @@ namespace Weighbridge
                                     docEntry = Convert.ToInt32(reader["DOCENTRY"]);
                                     docNum = reader["DOCNUM"].ToString();
                                     noKontrak = reader["KONTRAK"].ToString();
+                                    int linenumSAP = Convert.ToInt32(reader["LINENUM"]);
 
                                     lbValKontrakDO.Text = ": " + noKontrak;
+                                    lblValDocEntDOSAP.Text = docEntry.ToString();
+                                    lblValLineNumDOSAP.Text = linenumSAP.ToString();
 
                                     cbManualDO.Enabled = true;
                                     btnTimbangDO.Enabled = true;
@@ -1128,6 +1189,15 @@ namespace Weighbridge
                     connection.Close();
                 }
             }
+        }
+
+        private void btnUpdateDO_Click(object sender, EventArgs e)
+        {
+            int docEntryDOSAP = Convert.ToInt32(lblValDocEntDOSAP.Text);
+            int lineNumDOSAP = Convert.ToInt32(lblValLineNumDOSAP.Text);
+            double qtyTimbangDO = Convert.ToDouble(tbQtyTimbangDO.Text);
+
+            UpdateDO(docEntryDOSAP, lineNumDOSAP, qtyTimbangDO);
         }
 
         #endregion
